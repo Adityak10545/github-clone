@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-import Search from "../components/Search";
-import SortRepos from "../components/SortRepos";
 import ProfileInfo from "../components/ProfileInfo";
 import Repos from "../components/Repos";
+import Search from "../components/Search";
+import SortRepos from "../components/SortRepos";
 import Spinner from "../components/Spinner";
 
 const HomePage = () => {
@@ -18,13 +18,8 @@ const HomePage = () => {
         async (username = "Adityak47") => {
             setLoading(true);
             try {
-                // const res = await fetch(`/api/users/profile/${username}`);
-
-                const res = await fetch(
-                    `http://localhost:5000/api/users/profile/${username}`
-                );
+                const res = await fetch(`/api/users/profile/${username}`);
                 const { repos, userProfile } = await res.json();
-                console.log("userProfile:", userProfile);
 
                 repos.sort(
                     (a, b) => new Date(b.created_at) - new Date(a.created_at)
@@ -32,6 +27,7 @@ const HomePage = () => {
 
                 setRepos(repos);
                 setUserProfile(userProfile);
+
                 return { userProfile, repos };
             } catch (error) {
                 toast.error(error.message);
@@ -75,40 +71,6 @@ const HomePage = () => {
         setRepos([...repos]);
     };
 
-    // const [userProfile, setUserProfile] = useState(null);
-    // const [repos, setRepos] = useState([]);
-    // const [loading, setLoading] = useState(false);
-
-    // const [sortType, setSortType] = useState("recent");
-
-    // const getUserProfileAndRepos = useCallback(
-    //     async (username = "burakorkmez") => {
-    //         setLoading(true);
-    //         try {
-    //             const res = await fetch(`/api/users/profile/${username}`);
-    //             const { repos, userProfile } = await res.json();
-
-    //             repos.sort(
-    //                 (a, b) => new Date(b.created_at) - new Date(a.created_at)
-    //             ); //descending, recent first
-
-    //             setRepos(repos);
-    //             setUserProfile(userProfile);
-
-    //             return { userProfile, repos };
-    //         } catch (error) {
-    //             toast.error(error.message);
-    //         } finally {
-    //             setLoading(false);
-    //         }
-    //     },
-    //     []
-    // );
-
-    // useEffect(() => {
-    //     getUserProfileAndRepos();
-    // }, [getUserProfileAndRepos]);
-
     return (
         <div className="m-4">
             <Search onSearch={onSearch} />
@@ -126,5 +88,4 @@ const HomePage = () => {
         </div>
     );
 };
-
 export default HomePage;
