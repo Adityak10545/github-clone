@@ -43,8 +43,5 @@ passport.use(
                 done(null, user);
             }
         }
-        // function (accessToken, refreshToken, profile, done) {
-        //     console.log(profile);
-        // }
     )
 );
