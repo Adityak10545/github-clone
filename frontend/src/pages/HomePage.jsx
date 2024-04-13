@@ -18,7 +18,9 @@ const HomePage = () => {
         async (username = "Adityak47") => {
             setLoading(true);
             try {
-                const res = await fetch(`/api/users/profile/${username}`);
+                const res = await fetch(
+                    `https://github-clone-zvev.onrender.com/api/users/profile/${username}`
+                );
                 const { repos, userProfile } = await res.json();
 
                 repos.sort(
