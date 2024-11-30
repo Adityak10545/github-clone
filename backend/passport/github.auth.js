@@ -5,6 +5,9 @@ import User from "../models/user.model.js";
 
 dotenv.config();
 
+console.log(process.env.GITHUB_CLIENT_ID); // Should print your GitHub client ID
+console.log(process.env.GITHUB_CLIENT_SECRET); // Should print your GitHub client secret
+
 passport.serializeUser(function (user, done) {
     done(null, user);
 });
@@ -23,7 +26,7 @@ passport.use(
             clientID: process.env.GITHUB_CLIENT_ID,
             clientSecret: process.env.GITHUB_CLIENT_SECRET,
             callbackURL:
-                "https://github-clone-zhhj.onrender.com/api/auth/github/callback",
+                "https://github-clone-1-2jur.onrender.com/api/auth/github/callback",
         },
         async function (accessToken, refreshToken, profile, done) {
             const user = await User.findOne({ username: profile.username });
